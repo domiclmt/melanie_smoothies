@@ -1,6 +1,5 @@
 # Import python packages
 import streamlit as st
-import requests
 #from snowflake.snowpark.context import get_active_session # need to be activate in Streamlit 
 
 # Write directly to the app
@@ -46,7 +45,7 @@ if time_to_insert:
         session.sql(my_insert_stmt).collect()
         
         st.success('Your Smoothie is ordered!'+' '+NAME_ON_ORDER, icon="✅")
-
+import requests
 smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
 st.text(smoothiefroot_response)
 
