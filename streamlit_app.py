@@ -7,7 +7,6 @@ import requests
 st.title(f":cup_with_straw: Custom your Smoothies :cup_with_straw: {st.__version__}")
 st.write("""Choose the fruit you want in your custom smoothie ! """)
 
-
 NAME_ON_ORDER = st.text_input("Name on Smoothie: ")
 st.write("The name on your Smoothie will be :", NAME_ON_ORDER)
 
