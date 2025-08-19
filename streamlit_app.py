@@ -13,10 +13,19 @@ st.write("The name on your Smoothie will be :", NAME_ON_ORDER)
 from snowflake.snowpark.functions import col
 
 #session = get_active_session()
+#cnx = st.connection("snowflake")
+#session = cnx.session()
+#my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
+#st.dataframe(data=my_dataframe, use_container_width=True)
 cnx = st.connection("snowflake")
 session = cnx.session()
-my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
+my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'), col('SEARCH_ON'))
 #st.dataframe(data=my_dataframe, use_container_width=True)
+#st.stop()
+# Convert the snowpark Dataframe to a Pandas Dataframe s owe can use the LOC function
+pd_df = my_dataframe.to_pandas()
+#st.dataframe(pd_df)
+#st.stop()
 
 ingredients_list = st.multiselect(
     'Choose up to 5 ingredients :'
@@ -29,7 +38,7 @@ if ingredients_list :
     for fruits_chosen in ingredients_list:
         ingredients_string += fruits_chosen + ' '
         
-        search_on=pd_df.loc[pd_df['FRUIT_NAME'] == fruits_chosen, 'search_on'].iloc[0]
+        search_on=pd_df.loc[pd_df['FRUIT_NAME'] == fruits_chosen, 'SEARCH_ON'].iloc[0]
         #st.write('The search value for ', fruits_chosen,' is ', search_on, '.')
 
         st.subheader(fruits_chosen + 'Nutrition Information')
